@@ -42,16 +42,38 @@ class MyHomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment:
               CrossAxisAlignment.stretch, //Estica os elementos filhos
-          children: const <Widget>[
-            Card(
+          children: <Widget>[
+            const Card(
               color: Colors.blue,
               elevation: 5,
               child: Text('Grafico'),
             ),
-            Card(
-              elevation: 5,
-              child: Text('Lista de Transações'),
-            ),
+            Column(
+              children: _transactions.map(
+                (tr) {
+                  //Map usado para converter a lista em um elemento visual
+                  return Card(
+//O "elemento tr" vai percorrer a lista e por agora vai pegar apenas o title
+                      child: Row(
+                    children: [
+                      Container(
+                        child: Text(
+                          tr.value.toString(),
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          Text(tr.title!),
+                          Text(
+                            tr.date!.toIso8601String(),
+                          ),
+                        ],
+                      )
+                    ],
+                  ));
+                },
+              ).toList(),
+            )
           ],
         ));
   }
