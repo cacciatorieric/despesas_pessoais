@@ -1,5 +1,6 @@
 import 'package:despesas_pessoais/models/transactions.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 main() {
   runApp(const ExpensesApp());
@@ -39,7 +40,6 @@ class MyHomePage extends StatelessWidget {
           title: const Text('Primeira estrutura'),
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment:
               CrossAxisAlignment.stretch, //Estica os elementos filhos
           children: <Widget>[
@@ -57,15 +57,39 @@ class MyHomePage extends StatelessWidget {
                       child: Row(
                     children: [
                       Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 10),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.purple,
+                            width: 2,
+                          ),
+                        ),
+                        padding: const EdgeInsets.all(2),
                         child: Text(
-                          tr.value.toString(),
+                          'R\$ ${tr.value}',
+                          style: const TextStyle(
+                              color: Colors.purple,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
                         ),
                       ),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(tr.title!),
                           Text(
-                            tr.date!.toIso8601String(),
+                            tr.title!,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            DateFormat('d MMM y').format(tr.date!),
+                            style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey),
                           ),
                         ],
                       )
@@ -73,6 +97,26 @@ class MyHomePage extends StatelessWidget {
                   ));
                 },
               ).toList(),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Card(
+                elevation: 5,
+                child: Column(
+                  children: [
+                    const TextField(
+                      decoration: InputDecoration(labelText: 'Titulo'),
+                    ),
+                    const TextField(
+                      decoration: InputDecoration(labelText: 'Valor (R\$)'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: const Text('Nova Transação'),
+                    ),
+                  ],
+                ),
+              ),
             )
           ],
         ));
