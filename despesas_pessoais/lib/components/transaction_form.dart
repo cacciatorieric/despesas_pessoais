@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class TransactionForm extends StatelessWidget {
-  TransactionForm(
-    this.onSubmit,
-  );
+class TransactionForm extends StatefulWidget {
+  TransactionForm(this.onSubmit);
 
+  final void Function(String, double) onSubmit;
+
+  @override
+  State<TransactionForm> createState() => _TransactionFormState();
+}
+
+class _TransactionFormState extends State<TransactionForm> {
   _submitForm() {
     final title = titleController.text;
     final value = double.tryParse(valueController.text) ?? 0.0;
@@ -14,15 +19,12 @@ class TransactionForm extends StatelessWidget {
       Fluttertoast.showToast(msg: 'Preecha corretamente os campos ');
       return;
     }
-    onSubmit(title, value);
+    widget.onSubmit(title, value);
   }
 
   final titleController = TextEditingController();
+
   final valueController = TextEditingController();
-
-  //Este widget precisa se comunicar com o "widget pai", para isso criamos uma função (que recebe os tipos de dados que ele vai transmitir, e um construtor para receber argumentos.)
-
-  final void Function(String, double) onSubmit;
 
   @override
   Widget build(BuildContext context) {
