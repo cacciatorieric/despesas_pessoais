@@ -23,17 +23,19 @@ class MyHomePage extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Primeira estrutura'),
         ),
-        body: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.stretch, //Estica os elementos filhos
-          children: const <Widget>[
-            Card(
-              color: Colors.blue,
-              elevation: 5,
-              child: Text('Grafico'),
-            ),
-            TransactionUser(),
-          ],
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment:
+                CrossAxisAlignment.stretch, //Estica os elementos filhos
+            children: const <Widget>[
+              Card(
+                color: Colors.blue,
+                elevation: 5,
+                child: Text('Grafico'),
+              ),
+              TransactionUser(),
+            ],
+          ),
         ));
   }
 }

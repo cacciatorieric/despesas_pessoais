@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class TransactionForm extends StatelessWidget {
   TransactionForm(
     this.onSubmit,
   );
+
+  _submitForm() {
+    final title = titleController.text;
+    final value = double.tryParse(valueController.text) ?? 0.0;
+
+    if (title.isEmpty || value <= 0) {
+      Fluttertoast.showToast(msg: 'Preecha corretamente os campos ');
+      return;
+    }
+    onSubmit(title, value);
+  }
 
   final titleController = TextEditingController();
   final valueController = TextEditingController();
@@ -27,15 +39,18 @@ class TransactionForm extends StatelessWidget {
             TextField(
               controller: valueController,
               decoration: const InputDecoration(labelText: 'Valor (R\$)'),
+              onSubmitted: (_) {
+                _submitForm();
+              },
+              keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
                   onPressed: () {
-                    final title = titleController.text;
-                    final value = double.tryParse(valueController.text) ?? 0.0;
-                    onSubmit(title, value);
+                    _submitForm();
                   },
                   child: const Text('Nova Transação'),
                 ),
