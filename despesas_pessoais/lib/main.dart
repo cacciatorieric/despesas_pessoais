@@ -13,8 +13,32 @@ class ExpensesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData temaClaro = ThemeData();
+
     return MaterialApp(
       home: MyHomePage(),
+      theme: temaClaro.copyWith(
+        colorScheme: temaClaro.colorScheme.copyWith(
+          primary: const Color.fromARGB(255, 146, 219, 214),
+          secondary: const Color.fromARGB(255, 73, 158, 154),
+        ),
+        textTheme: const TextTheme(
+          titleSmall: TextStyle(
+            fontFamily: 'VarelaRound',
+            fontSize: 16,
+            color: Color.fromARGB(255, 73, 158, 154),
+          ),
+        ),
+
+//Podemos deixar os padroes universais aqui dentro, tanto para apenas o appbar quanto para o resto do app
+        appBarTheme: const AppBarTheme(
+          titleTextStyle: TextStyle(
+            color: Colors.black,
+            fontFamily: 'Offside',
+          ),
+          iconTheme: IconThemeData(color: Colors.black),
+        ),
+      ),
     );
   }
 }
@@ -25,19 +49,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _transactions = [
-    Transaction(
-      id: 't1',
-      title: 'Novo tenis de corrida',
-      value: 310.73,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Conta de Luz',
-      value: 100.32,
-      date: DateTime.now(),
-    ),
+  final List<Transaction> _transactions = [
+    // Transaction(
+    //   id: 't1',
+    //   title: 'Novo tenis de corrida',
+    //   value: 310.73,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 't2',
+    //   title: 'Conta de Luz',
+    //   value: 100.32,
+    //   date: DateTime.now(),
+    // ),
   ];
 
   _openTransactionFormModal(BuildContext context) {
@@ -78,7 +102,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         ],
-        title: const Text('Primeira estrutura'),
+        title: const Text(
+          'Despesas Pessoais',
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -95,7 +121,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
+        child: Icon(
+          Icons.add,
+          color: Theme.of(context).colorScheme.primary,
+        ),
         onPressed: () {
           _openTransactionFormModal(context);
         },
