@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:despesas_pessoais/components/chart.dart';
 import 'package:despesas_pessoais/components/transaction_form.dart';
 import 'package:flutter/material.dart';
 import 'components/transaction_list.dart';
@@ -21,6 +22,7 @@ class ExpensesApp extends StatelessWidget {
         colorScheme: temaClaro.colorScheme.copyWith(
           primary: const Color.fromARGB(255, 146, 219, 214),
           secondary: const Color.fromARGB(255, 73, 158, 154),
+          tertiary: const Color.fromARGB(255, 71, 71, 71),
         ),
         textTheme: const TextTheme(
           titleSmall: TextStyle(
@@ -50,19 +52,43 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [
-    // Transaction(
-    //   id: 't1',
-    //   title: 'Novo tenis de corrida',
-    //   value: 310.73,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 't2',
-    //   title: 'Conta de Luz',
-    //   value: 100.32,
-    //   date: DateTime.now(),
-    // ),
+    Transaction(
+      id: 't0',
+      title: 'Maconia',
+      value: 700,
+      date: DateTime.now().subtract(
+        const Duration(days: 33),
+      ),
+    ),
+    Transaction(
+      id: 't1',
+      title: 'Novo tenis de corrida',
+      value: 310.73,
+      date: DateTime.now().subtract(
+        const Duration(days: 3),
+      ),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Conta de Luz',
+      value: 100.32,
+      date: DateTime.now().subtract(
+        const Duration(days: 4),
+      ),
+    ),
   ];
+
+  List<Transaction> get _recentTransactions {
+    return _transactions.where(
+      (tr) {
+        return tr.date!.isAfter(
+          DateTime.now().subtract(
+            const Duration(days: 7),
+          ),
+        );
+      },
+    ).toList();
+  }
 
   _openTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
@@ -111,11 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment:
               CrossAxisAlignment.stretch, //Estica os elementos filhos
           children: <Widget>[
-            const Card(
-              color: Colors.blue,
-              elevation: 5,
-              child: Text('Grafico'),
-            ),
+            Chart(recentTransactions: _recentTransactions),
             TransactionList(_transactions),
           ],
         ),

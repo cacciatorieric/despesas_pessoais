@@ -36,11 +36,19 @@ class _TransactionFormState extends State<TransactionForm> {
           children: [
             TextField(
               controller: titleController,
+              style: const TextStyle(
+                color: Colors.black,
+              ),
               decoration: const InputDecoration(labelText: 'Titulo'),
             ),
             TextField(
               controller: valueController,
-              decoration: const InputDecoration(labelText: 'Valor (R\$)'),
+              style: const TextStyle(
+                color: Colors.black,
+              ),
+              decoration: const InputDecoration(
+                labelText: 'Valor (R\$)',
+              ),
               onSubmitted: (_) {
                 _submitForm();
               },
