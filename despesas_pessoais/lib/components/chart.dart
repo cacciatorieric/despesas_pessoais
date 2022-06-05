@@ -1,3 +1,4 @@
+import 'package:despesas_pessoais/components/chart_bar.dart';
 import 'package:despesas_pessoais/models/transactions.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -33,7 +34,13 @@ class Chart extends StatelessWidget {
           'value': totalSum,
         };
       },
-    );
+    ).reversed.toList();
+  }
+
+  double get _weekTotalValue {
+    return groupedTransactions.fold(0.0, (sum, tr) {
+      return sum + (tr['value'] as double);
+    });
   }
 
   @override
@@ -42,13 +49,22 @@ class Chart extends StatelessWidget {
     return Card(
       elevation: 6,
       margin: const EdgeInsets.all(20),
-      child: Row(
-        children: groupedTransactions.map((tr) {
-          return Text(
-            '${tr['day']}: ${tr['value']} ',
-            style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
-          );
-        }).toList(),
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: groupedTransactions.map((tr) {
+            return Flexible(
+              fit: FlexFit.tight,
+              flex: 1,
+              child: ChartBar(
+                label: tr['day'].toString(),
+                value: double.parse(tr['value'].toString()),
+                percentage: (tr['value'] as double) / _weekTotalValue,
+              ),
+            );
+          }).toList(),
+        ),
       ),
     );
   }

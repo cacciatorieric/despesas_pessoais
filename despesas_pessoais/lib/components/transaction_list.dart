@@ -9,15 +9,15 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 300,
       child: transactions!.isEmpty
           ? Column(
               children: [
-                const Text(
+                Text(
                   'Nenhuma despesa adicionada',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.tertiary,
                     fontSize: 25,
                   ),
                 ),
@@ -35,48 +35,35 @@ class TransactionList extends StatelessWidget {
               itemBuilder: (ctx, index) {
                 final tr = transactions![index];
                 return Card(
-//O "elemento tr" vai percorrer a lista e por agora vai pegar apenas o title
-                  child: Row(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 10),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Theme.of(context).colorScheme.secondary,
-                            width: 2,
+                  elevation: 5,
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      radius: 30,
+                      child: FittedBox(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'R\$${tr.value}',
+                            style: const TextStyle(
+                                color: Color.fromARGB(255, 0, 0, 0)),
                           ),
-                        ),
-                        padding: const EdgeInsets.all(2),
-                        child: Text(
-                          'R\$ ${tr.value}',
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
                         ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            tr.title!,
-                            style: Theme.of(context).textTheme.titleSmall,
-                            // style: const TextStyle(
-                            //   fontSize: 16,
-                            //   fontWeight: FontWeight.bold,
-                            // ),
-                          ),
-                          Text(
-                            DateFormat('d MMM y').format(tr.date!),
-                            style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey),
-                          ),
-                        ],
-                      )
-                    ],
+                    ),
+                    title: Text(
+                      tr.title!,
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    subtitle: Text(
+                      DateFormat('d MMM y').format(tr.date!),
+                      style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey),
+                    ),
                   ),
                 );
               },
