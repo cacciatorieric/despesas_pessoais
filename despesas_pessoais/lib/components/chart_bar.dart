@@ -18,10 +18,13 @@ class ChartBar extends StatelessWidget {
       children: [
         SizedBox(
           height: 20,
-          child: FittedBox(
-            child: Text(
-              value!.toStringAsFixed(2),
-              style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
+          child: Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: FittedBox(
+              child: Text(
+                value!.toStringAsFixed(2),
+                style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
+              ),
             ),
           ),
         ),
