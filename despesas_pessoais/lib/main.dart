@@ -9,6 +9,8 @@ main() {
   runApp(const ExpensesApp());
 }
 
+//Projeto de 1 semana terminado
+
 class ExpensesApp extends StatelessWidget {
   const ExpensesApp({Key? key}) : super(key: key);
 
@@ -119,7 +121,10 @@ class _MyHomePageState extends State<MyHomePage> {
               CrossAxisAlignment.stretch, //Estica os elementos filhos
           children: <Widget>[
             Chart(recentTransactions: _recentTransactions),
-            TransactionList(_transactions, _deleteTransaction,)
+            TransactionList(
+              _transactions,
+              _deleteTransaction,
+            )
           ],
         ),
       ),
