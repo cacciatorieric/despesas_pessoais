@@ -1,6 +1,6 @@
 # despesas_pessoais
 
-Portfolio de app de despesas pessoais
+Aplicação para servir de portfólio -> Despesas Pessoais
 
 ## Getting Started
 
