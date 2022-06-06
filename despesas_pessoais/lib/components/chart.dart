@@ -3,6 +3,8 @@ import 'package:despesas_pessoais/models/transactions.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+//Projeto de 1 semana terminado
+
 class Chart extends StatelessWidget {
   const Chart({Key? key, this.recentTransactions}) : super(key: key);
 

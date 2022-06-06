@@ -12,6 +12,8 @@ class ChartBar extends StatelessWidget {
   final double? value;
   final double? percentage;
 
+//Projeto de 1 semana terminado
+
   @override
   Widget build(BuildContext context) {
     return Column(

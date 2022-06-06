@@ -8,6 +8,8 @@ class TransactionList extends StatelessWidget {
   // ignore: use_key_in_widget_constructors
   const TransactionList(this.transactions, this.onRemove);
 
+  //Projeto de 1 semana terminado
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
